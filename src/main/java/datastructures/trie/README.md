@@ -1,0 +1,1 @@
+1. Tries is a tree that stores strings

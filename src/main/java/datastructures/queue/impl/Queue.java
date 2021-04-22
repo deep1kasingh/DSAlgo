@@ -1,71 +1,37 @@
 package datastructures.queue.impl;
 
-import org.omg.CORBA.Object;
+import datastructures.linkedlist.impl.DoublyLinkedList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 
 public class Queue<T> implements Iterable<T> {
-    private int capacity = 100000;
-    private T[] staticArr = (T[]) new Object[capacity];
+    private DoublyLinkedList<T> list = null;
 
-    private int head = -1;
-    private int tail = -1;
-    private int size = 0;
+    public Queue() {
+        list = new DoublyLinkedList<T>();
+    }
 
-    public void addLast(T val) {
-        if (head == -1) {
-            staticArr[0] = val;
-            head = 0;
-            tail = 0;
-        } else {
-            staticArr[++tail] = val;
-        }
-        size++;
+    public void offer(T elem) {
+        list.addLast(elem);
+    }
+
+    public T poll() {
+        if (isEmpty()) throw new RuntimeException("Queue Empty");
+        return list.removeFront();
+    }
+
+    public T peek() {
+        return list.getFirst();
     }
 
     public boolean isEmpty() {
-        return this.size == 0;
+        return list.isEmpty();
     }
 
-    public T removeFirst() {
-        if (!isEmpty()) {
-            T data = staticArr[head];
-            head++;
-            size--;
-            if (size == 0) {
-                head = -1;
-                tail = -1;
-            }
-            return data;
-        } else {
-            return null;
-        }
-    }
-
-    public int size() {
-        if (!isEmpty()) {
-            return this.tail - this.head + 1;
-        } else {
-            return 0;
-        }
-    }
-
+    @NotNull
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            int first = head;
-            int last = tail;
-            @Override
-            public boolean hasNext() {
-                return first<=last;
-            }
-
-            @Override
-            public T next() {
-                T data = staticArr[first];
-                first++;
-                return data;
-            }
-        };
+        return null;
     }
 }

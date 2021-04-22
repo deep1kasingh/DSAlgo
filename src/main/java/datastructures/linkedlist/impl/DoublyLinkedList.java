@@ -1,104 +1,161 @@
 package datastructures.linkedlist.impl;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class DoublyLinkedList<T> implements Iterable<T> {
     private class Node<T> {
-        private T val;
-        Node next;
-        Node prev;
+        T value;
+        Node<T> next = null;
+        Node<T> previous = null;
 
         Node(T val) {
-            this.val = val;
+            this.value = val;
         }
+
+        Node addNext(T val) {
+            Node node = new Node(val);
+            this.next = node;
+            node.previous = this;
+            return node;
+        }
+
+        Node addPrevious(T val) {
+            Node node = new Node(val);
+            node.next = this;
+            this.previous = node;
+            return node;
+        }
+
     }
 
-    Node<T> head;
-    Node<T> tail;
-    int size=0;
+    private Node<T> head = null;
+    private Node<T> tail = null;
 
-    public T first() {
-        if (head != null) {
-            return  head.val;
-        } else {
-            return null;
-        }
+    private int size = 0;
+
+    public DoublyLinkedList() {
+
     }
 
-    public T tail() {
-        if (tail != null) {
-            return  tail.val;
-        } else {
-            return null;
-        }
+    public DoublyLinkedList(T val) {
+        intialise(val);
     }
 
-    public void addToHead(T val) {
-        Node newNode = new Node(val);
-        if(head == null){
-            this.head = newNode;
-            this.tail = newNode;
-        } else {
-            newNode.next = this.head;
-            this.head.prev = newNode;
-            this.head = newNode;
-        }
+    private void intialise(T val) {
+        head = new Node<>(val);
+        tail = new Node<>(val);
         size++;
-    }
-
-    public void addToTail(T val) {
-        Node newNode = new Node<>(val);
-        if(this.tail == null){
-            this.head = newNode;
-            this.tail = newNode;
-        } else {
-            this.tail.next = newNode;
-            newNode.prev = this.tail;
-            this.tail = newNode;
-        }
-        size++;
-    }
-
-    public void clear() {
-        this.head = null;
-        this.size = 0;
     }
 
     public int size() {
-        return size;
+        return this.size;
     }
 
-    // Is this Linked List Empty
     public boolean isEmpty() {
-        return size() == 0;
+        return this.size == 0;
     }
 
-    public T removeAtHead(){
-        if(!isEmpty()){
-            T data = this.head.val;
-            this.head = this.head.next;
-            this.head.prev = null;
-            return data;
-        } else {
-            return null;
+    public void addFront(T val) {
+        if (this.head == null) {
+            intialise(val);
+            return;
         }
+        Node node = this.head.addPrevious(val);
+        this.head = node;
+        size++;
     }
 
+    public void addLast(T val) {
+        if (this.head == null) {
+            intialise(val);
+            return;
+        }
+        Node node = this.tail.addNext(val);
+        this.tail = node;
+        size++;
+    }
+
+    public boolean remove(Object obj) {
+        if (obj == null) return false;
+        Node<T> trav = head;
+        while (trav != null && trav.value != obj) {
+            trav = trav.next;
+        }
+        if (trav != null) {
+            if (trav.previous == null) {
+                removeFront();
+            } else if (trav.next == null) {
+                removeLast();
+            } else {
+                trav.previous.next = trav.next;
+                trav.next.previous = trav.previous;
+            }
+            return true;
+        } else return false;
+    }
+
+    public T removeFront() {
+        if (head == null) throw new RuntimeException("Empty list");
+        size--;
+        Node<T> node = head;
+        if (head == tail) {
+            head = null;
+            tail = null;
+        } else {
+            this.head = this.head.next;
+        }
+        return node.value;
+    }
+
+    public T removeLast() {
+        if (head == null) throw new RuntimeException("Empty list");
+        size--;
+        Node<T> node = tail;
+        if (head == tail) {
+            head = null;
+            tail = null;
+        }
+        this.tail = this.head.previous;
+        return node.value;
+    }
+
+    public T getFirst() {
+        if (head == null) throw new RuntimeException("Empty list");
+        return this.head.value;
+    }
+
+    @NotNull
     @Override
     public Iterator<T> iterator() {
+
         return new Iterator<T>() {
-            Node<T> trav = head;
+            private Node<T> trav = head;
+
             @Override
             public boolean hasNext() {
-                return trav == null;
+                return trav.next != null;
             }
 
             @Override
             public T next() {
-                T data = trav.val;
+                T data = trav.value;
                 trav = trav.next;
                 return data;
             }
         };
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        return null;
     }
 }

@@ -1,40 +1,56 @@
 package datastructures.stack.impl;
 
+import datastructures.linkedlist.impl.DoublyLinkedList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class Stack<T> implements Iterable<T> {
-    //implement stack using linked list
-    private LinkedList<T> linkedList = new LinkedList<>();
+    private DoublyLinkedList<T> list = null;
 
-    public void push(T val) {
-        linkedList.addFirst(val);
+    public Stack() {
+        list = new DoublyLinkedList<T>();
     }
 
-    public boolean isEmpty() {
-        return linkedList.isEmpty();
+    public Stack(T elem) {
+        push(elem);
     }
 
     public T pop() {
-        T val = linkedList.pop();
-        return val;
+        return list.removeFront();
+    }
+
+    public void push(T val) {
+        list.addFront(val);
     }
 
     public T peek() {
-        T val = linkedList.peek();
-        return val;
+        return list.getFirst();
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
     }
 
     public int size() {
-        return this.linkedList.size();
+        return list.size();
     }
 
-    public void clearStack() {
-        this.linkedList.clear();
+    @NotNull
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return linkedList.iterator();
+    public void forEach(Consumer<? super T> action) {
+
+    }
+
+    @Override
+    public Spliterator<T> spliterator() {
+        return null;
     }
 }

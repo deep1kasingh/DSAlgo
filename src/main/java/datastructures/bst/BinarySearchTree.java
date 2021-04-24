@@ -1,27 +1,17 @@
 package datastructures.bst;
 
+import datastructures.Node;
+
 public class BinarySearchTree {
     //root of the binary search bst
     Node root = null;
-
-    public static class Node {
-        int val;
-        Node left;
-        Node right;
-
-        public Node(int val) {
-            this.val = val;
-            this.left = null;
-            this.right = null;
-        }
-    }
 
     // inorder tranversal of the bst
     public void inorder() {
         inorderRec(root);
     }
 
-    private void inorderRec(Node root) {
+    public void inorderRec(Node root) {
         if (root == null) return;
         inorderRec(root.left);
         System.out.println(root.val);
@@ -52,7 +42,8 @@ public class BinarySearchTree {
         root = insertRec(root, value);
     }
 
-    public void deleteKey(int value) {}
+    public void deleteKey(int value) {
+    }
 
     public static void main(String[] args) throws Exception {
         BinarySearchTree bst = new BinarySearchTree();

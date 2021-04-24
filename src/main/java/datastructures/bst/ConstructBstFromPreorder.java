@@ -1,5 +1,7 @@
 package datastructures.bst;
 
+import datastructures.Node;
+
 public class ConstructBstFromPreorder extends BinarySearchTree {
     private Node construct(int[] preorderTraversal) {
         Node root = new Node(preorderTraversal[0]);

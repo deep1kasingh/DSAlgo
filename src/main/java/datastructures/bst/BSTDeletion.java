@@ -1,5 +1,7 @@
 package datastructures.bst;
 
+import datastructures.Node;
+
 public class BSTDeletion extends BinarySearchTree {
     public void deleteKey(int value) {
         root = deleteRec(root, value);
@@ -29,7 +31,7 @@ public class BSTDeletion extends BinarySearchTree {
     }
 
     private Node findNodeSucc(Node node) {
-        while(node.left != null) node = node.left;
+        while (node.left != null) node = node.left;
         return node;
     }
 

@@ -1,13 +1,13 @@
 package datastructures.bst;
 
-import datastructures.Node;
+import datastructures.TreeNode;
 
 public class BSTDeletion extends BinarySearchTree {
     public void deleteKey(int value) {
         root = deleteRec(root, value);
     }
 
-    private Node deleteRec(Node node, int value) {
+    private TreeNode deleteRec(TreeNode node, int value) {
         if (node == null) return null;
         if (node.val == value) {
             // the key to be deleted is a leaf
@@ -19,7 +19,7 @@ public class BSTDeletion extends BinarySearchTree {
                 return node.left;
             } else {
                 // find node successor
-                Node nodeSucc = findNodeSucc(node.right);
+                TreeNode nodeSucc = findNodeSucc(node.right);
                 node.val = nodeSucc.val;
                 node.right = deleteRec(node.right, node.val);
                 return node;
@@ -30,7 +30,7 @@ public class BSTDeletion extends BinarySearchTree {
         return node;
     }
 
-    private Node findNodeSucc(Node node) {
+    private TreeNode findNodeSucc(TreeNode node) {
         while (node.left != null) node = node.left;
         return node;
     }

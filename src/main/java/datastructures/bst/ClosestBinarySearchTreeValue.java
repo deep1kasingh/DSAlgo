@@ -1,26 +1,9 @@
 package datastructures.bst;
 
+import datastructures.TreeNode;
 import javafx.util.Pair;
 
 public class ClosestBinarySearchTreeValue {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
 
     public int closestValue(TreeNode root, double target) {
         return closestValueRecur(root, new Pair<>(null, Double.MAX_VALUE), target).getKey();

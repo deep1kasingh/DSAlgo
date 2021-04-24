@@ -1,15 +1,15 @@
 package datastructures.bst;
 
-import datastructures.Node;
+import datastructures.TreeNode;
 
 public class ConstructBstFromPreorder extends BinarySearchTree {
-    private Node construct(int[] preorderTraversal) {
-        Node root = new Node(preorderTraversal[0]);
+    private TreeNode construct(int[] preorderTraversal) {
+        TreeNode root = new TreeNode(preorderTraversal[0]);
         constructRec(preorderTraversal, 1, root);
         return root;
     }
 
-    private int constructRec(int[] preorderTraversal, int indx, Node node) {
+    private int constructRec(int[] preorderTraversal, int indx, TreeNode node) {
         return -1;
     }
 

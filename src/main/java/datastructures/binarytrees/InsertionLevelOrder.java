@@ -1,11 +1,13 @@
 package datastructures.binarytrees;
 
+import datastructures.TreeNode;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class InsertionLevelOrder {
-    private void inorder(TreeNode root){
-        if(root==null) return;
+    private void inorder(TreeNode root) {
+        if (root == null) return;
         inorder(root.left);
         System.out.println(root.val);
         inorder(root.right);
@@ -42,7 +44,7 @@ public class InsertionLevelOrder {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(8);
 
-        InsertionLevelOrder insertionLevelOrder= new InsertionLevelOrder();
+        InsertionLevelOrder insertionLevelOrder = new InsertionLevelOrder();
 //        insertionLevelOrder.inorder(root);
         insertionLevelOrder.insert(root, 12);
         insertionLevelOrder.inorder(root);

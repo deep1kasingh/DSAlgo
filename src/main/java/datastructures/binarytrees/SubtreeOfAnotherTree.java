@@ -1,5 +1,7 @@
 package datastructures.binarytrees;
 
+import datastructures.TreeNode;
+
 public class SubtreeOfAnotherTree {
     public boolean isSubtree(TreeNode s, TreeNode t) {
         if (t == null) return true;

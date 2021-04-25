@@ -1,5 +1,7 @@
 package datastructures.binarytrees;
 
+import datastructures.TreeNode;
+
 public class MirrorOfItself {
 
     private boolean isMirrorTree(TreeNode root) {

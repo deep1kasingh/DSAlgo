@@ -1,22 +1,32 @@
 package datastructures.bst;
 
 import datastructures.TreeNode;
-import javafx.util.Pair;
+
+import java.util.AbstractMap;
+import java.util.Map;
+
+
+class Pair {
+    // Return a map entry (key-value pair) from the specified values
+    public static <T, U> Map.Entry<T, U> of(T first, U second) {
+        return new AbstractMap.SimpleEntry<>(first, second);
+    }
+}
 
 public class ClosestBinarySearchTreeValue {
 
     public int closestValue(TreeNode root, double target) {
-        return closestValueRecur(root, new Pair<>(null, Double.MAX_VALUE), target).getKey();
+        return closestValueRecur(root, Pair.of(null, Double.MAX_VALUE), target).getKey();
     }
 
-    private Pair<Integer, Double> closestValueRecur(TreeNode root, Pair<Integer, Double> minPair, double target) {
+    private Map.Entry<Integer, Double> closestValueRecur(TreeNode root, Map.Entry<Integer, Double> minPair, double target) {
         if (root != null) {
             double currDiff = Math.abs(root.val - target);
             if (currDiff < minPair.getValue()) {
-                minPair = new Pair<>(root.val, currDiff);
+                minPair = Pair.of(root.val, currDiff);
             }
-            Pair<Integer, Double> leftPair = closestValueRecur(root.left, minPair, target);
-            Pair<Integer, Double> rightPair = closestValueRecur(root.right, minPair, target);
+            Map.Entry<Integer, Double> leftPair = closestValueRecur(root.left, minPair, target);
+            Map.Entry<Integer, Double> rightPair = closestValueRecur(root.right, minPair, target);
             if (leftPair.getValue() < minPair.getValue()) {
                 minPair = leftPair;
             }
